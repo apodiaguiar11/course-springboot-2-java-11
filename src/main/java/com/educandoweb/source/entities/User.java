@@ -1,13 +1,19 @@
 package com.educandoweb.source.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
+//Colocando o nome da tabela
+@Table(name = "tb_user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -20,6 +26,15 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
+	//Associação
+	//1 usuário (User) tem vários pedidos (Order)
+	//Seria a forma de mapear o relacionamento 1XN
+	//Esse mapeamento feito na classe 1 (do relacionamento 1XN) é para quando
+	//quiser mostrar todos os pedidos de um mesmo cliente
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();	
+	
+
 	//Quando uso framework é obrigado criar um construtor vazio.	
 	public User(){
 		
@@ -71,6 +86,10 @@ public class User implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public List<Order> getOrders() {
+		return orders;
 	}
 
 	@Override
