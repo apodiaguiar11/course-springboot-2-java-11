@@ -20,8 +20,7 @@ public class User implements Serializable {
 	private String phone;
 	private String password;
 	
-	//Quando uso framework é obrigado criar um construtor vazio.
-	
+	//Quando uso framework é obrigado criar um construtor vazio.	
 	public User(){
 		
 	}

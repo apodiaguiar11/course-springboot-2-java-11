@@ -20,10 +20,12 @@ import com.educandoweb.source.repositories.UserRepository;
 @Profile("test")
 public class TestConfig implements CommandLineRunner{
 
-	//Resolve automaticamente essa dependência e associar uma instância de userRepository aqui dentro
+	//A annotation a seguir resolve automaticamente essa dependência e 
+	//associa uma instância de userRepository aqui dentro
 	@Autowired
 	private UserRepository userRepository;
 
+	//Método para rodar o código a seguir
 	@Override
 	public void run(String... args) throws Exception {
 		
