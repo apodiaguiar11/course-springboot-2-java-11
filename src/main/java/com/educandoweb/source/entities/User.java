@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 //Colocando o nome da tabela
 @Table(name = "tb_user")
@@ -31,6 +33,11 @@ public class User implements Serializable {
 	//Seria a forma de mapear o relacionamento 1XN
 	//Esse mapeamento feito na classe 1 (do relacionamento 1XN) é para quando
 	//quiser mostrar todos os pedidos de um mesmo cliente
+	//A annotation JsonIgnore seria para não haver um loop infinito 
+	//Caso colocasse o JsonIgnore no lado N (relacionamento 1XN), quando fizesse a requisição para mostrar
+	//os usuários, iria mostrar os usuários e os pedidos associados ao mesmo; mas, neste caso, se fizesse a requisição
+	//para mostrar os pedidos, não iria mostrar o cliente associado ao pedido
+	@JsonIgnore
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();	
 	

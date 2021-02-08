@@ -11,20 +11,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable{
 
+	private static final long serialVersionUID = 1L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	//A classe Instant é uma classe melhor que a Date
 	//e foi incrementada no Java, a partir da versão 8.
+	//A annotation a seguir irá transformar o Instant para o padrão iso 8601
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
 	private Instant moment; 
 	
 	//Associação
 	//1 pedido (Order) tem apenas um usuário (User) 
-	//Para transformar em chave estrangeira, vamos usar a annotation a seguir
+	//Para transformar em chave estrangeira, vamos usar a annotation a seguir	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;	
