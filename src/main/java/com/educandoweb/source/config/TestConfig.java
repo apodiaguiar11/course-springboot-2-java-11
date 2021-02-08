@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.educandoweb.source.entities.Category;
 import com.educandoweb.source.entities.Order;
+import com.educandoweb.source.entities.Product;
 import com.educandoweb.source.entities.User;
 import com.educandoweb.source.entities.enums.OrderStatus;
 import com.educandoweb.source.repositories.CategoryRepository;
 import com.educandoweb.source.repositories.OrderRepository;
+import com.educandoweb.source.repositories.ProductRepository;
 import com.educandoweb.source.repositories.UserRepository;
 
 //Para falar para o Spring que essa é uma classe específica de configuração,
@@ -37,6 +39,8 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
+	@Autowired
+	private ProductRepository productRepository;
 
 	//Método para rodar o código a seguir
 	@Override
@@ -53,6 +57,12 @@ public class TestConfig implements CommandLineRunner{
 		Category cat2 = new Category(null, "Books");
 		Category cat3 = new Category(null, "Computers");
 		
+		Product p1 = new Product(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+		Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+		
 		//Salvar no Banco de dados
 		//Objeto userRepository acessa os dados
 		//Passo uma lista
@@ -62,6 +72,7 @@ public class TestConfig implements CommandLineRunner{
 		
 		categoryRepository.saveAll(Arrays.asList(cat1,cat2,cat3));
 		
+		productRepository.saveAll(Arrays.asList(p1,p2,p3,p4,p5));
 		
 		
 	}
