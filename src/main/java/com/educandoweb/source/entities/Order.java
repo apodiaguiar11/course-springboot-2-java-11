@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.educandoweb.source.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
@@ -28,6 +29,13 @@ public class Order implements Serializable{
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'",timezone = "GMT")
 	private Instant moment; 
 	
+	//Aqui dentro da classe vou armazenar como um Integer,
+	//mas para fora da classe irei sempre retornar um valor do tipo enum
+	//por isso, implementamos os dois métodos dentro do enum OrderStatus,
+	//para fazer essa conversão e numerar os enums
+	private Integer orderStatus;
+	
+	
 	//Associação
 	//1 pedido (Order) tem apenas um usuário (User) 
 	//Para transformar em chave estrangeira, vamos usar a annotation a seguir	
@@ -40,9 +48,10 @@ public class Order implements Serializable{
 		
 	}
 
-	public Order(Long id, Instant moment, User client) {
+	public Order(Long id, Instant moment,OrderStatus orderStatus, User client) {
 		this.id = id;
 		this.moment = moment;
+		setOrderStatus(orderStatus);
 		this.client = client;
 	}
 
@@ -60,6 +69,16 @@ public class Order implements Serializable{
 
 	public void setMoment(Instant moment) {
 		this.moment = moment;
+	}	
+	
+	public OrderStatus getOrderStatus() {
+		return OrderStatus.valueOf(orderStatus);
+	}
+
+	public void setOrderStatus(OrderStatus orderStatus) {
+		if(orderStatus != null) {
+			this.orderStatus = orderStatus.getCode();
+		}		
 	}
 
 	public User getClient() {
@@ -69,7 +88,8 @@ public class Order implements Serializable{
 	public void setClient(User client) {
 		this.client = client;
 	}
-
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
