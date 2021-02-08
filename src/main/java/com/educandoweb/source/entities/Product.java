@@ -8,8 +8,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "tb_product")
@@ -31,7 +33,14 @@ public class Product implements Serializable {
 	//O mesmo produto não pode ter a mesma categoria mais de uma vez
 	//Instanciamos logo para garantir que a coleção não comece nula;
 	//Ela precisa começar vazia, mas instanciada
-	@Transient
+	//O comando abaixo é para o relacionamento NxN.
+	//name = "tb_product_category" (Nome da tabela no Banco de Dados)
+	//Porque sabemos que em um caso de associação NxN
+	//é criada uma nova tabela de associação
+	@ManyToMany
+	@JoinTable(name = "tb_product_category",
+	joinColumns = @JoinColumn(name = "product_id"),
+	inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 	
 	public Product() {
