@@ -41,9 +41,7 @@ public class Product implements Serializable {
 	//Porque sabemos que em um caso de associação NxN
 	//é criada uma nova tabela de associação
 	@ManyToMany
-	@JoinTable(name = "tb_product_category",
-	joinColumns = @JoinColumn(name = "product_id"),
-	inverseJoinColumns = @JoinColumn(name = "category_id"))
+	@JoinTable(name = "tb_product_category", joinColumns = @JoinColumn(name = "product_id"),inverseJoinColumns = @JoinColumn(name = "category_id"))
 	private Set<Category> categories = new HashSet<>();
 	
 	@OneToMany(mappedBy = "id.product")
@@ -54,6 +52,7 @@ public class Product implements Serializable {
 	}
 
 	public Product(Long id, String name, String description, Double price, String imgUrl) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
