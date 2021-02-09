@@ -57,9 +57,12 @@ public class UserService {
 		//O comando getOne prepara o objeto monitorado para poder manusear
 		//para só depois efetuar uma operação com o Banco de dados.
 		//Mais eficiente do que usar o findById
-		User entity = repository.getOne(id);
-		updateData(entity,obj);
-		return repository.save(entity);
+		try {
+			User entity = repository.getOne(id);
+			updateData(entity,obj);
+			return repository.save(entity);
+		}
+		
 	}
 
 	private void updateData(User entity, User obj) {
